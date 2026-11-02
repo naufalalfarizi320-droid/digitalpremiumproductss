@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLIX - Premium Digital Products</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter & Playfair -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,800;1,400&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            light: '#f7d070',
+                            DEFAULT: '#d4af37',
+                            dark: '#aa820a',
+                        },
+                        shopee: {
+                            orange: '#ee4d2d',
+                            darkorange: '#d03e1f',
+                        },
+                        darkbg: {
+                            900: '#0B0D12',
+                            800: '#121620',
+                            700: '#1A202C',
+                            600: '#252D3D'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0B0D12;
+            color: #E2E8F0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #FFF099 0%, #D4AF37 50%, #997A15 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .shopee-badge {
+            background: linear-gradient(45deg, #ee4d2d, #ff7337);
+        }
+
+        .gold-button {
+            background: linear-gradient(135deg, #d4af37 0%, #aa820a 100%);
+            transition: all 0.3s ease;
+        }
+        .gold-button:hover {
+            background: linear-gradient(135deg, #f7d070 0%, #d4af37 100%);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+        }
+
+        .wa-button {
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+        }
+        .wa-button:hover {
+            box-shadow: 0 0 15px rgba(37, 211, 102, 0.4);
+        }
+
+        .flix-logo-text {
+            font-family: 'Playfair Display', serif;
+            font-weight: 800;
+            font-style: italic;
+            background: linear-gradient(135deg, #FFF099 0%, #D4AF37 50%, #FFD700 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 12px rgba(212, 175, 55, 0.5), 0 0 24px rgba(212, 175, 55, 0.3);
+            letter-spacing: 1.5px;
+        }
+        .flix-icon-glow {
+            filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.8));
+        }
+
+        /* Welcome Screen Animation */
+        .welcome-screen {
+            position: fixed;
+            inset: 0;
+            background-color: #0B0D12;
+            z-index: 99999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .welcome-screen.hide {
+            opacity: 0;
+            transform: translateY(-100%);
+            pointer-events: none;
+        }
+        .loading-bar {
+            width: 200px;
+            height: 3px;
+            background: #252D3D;
+            border-radius: 4px;
+            margin-top: 24px;
+            overflow: hidden;
+            position: relative;
+        }
+        .loading-bar::after {
+            content: '';
+            position: absolute;
+            left: -100%;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, #d4af37, transparent);
+            animation: loading 1.2s infinite ease-in-out;
+        }
+        @keyframes loading {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        
+        .glass-card {
+            background: rgba(18, 22, 32, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+        .glow-hover {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glow-hover:hover {
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.15);
+            border-color: rgba(212, 175, 55, 0.5);
+            transform: translateY(-6px);
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0B0D12;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #252D3D;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #d4af37;
+        }
+    </style>
+</head>
+<body class="bg-darkbg-900 text-slate-200 antialiased selection:bg-gold selection:text-black">
+
+    <!-- Welcome Screen Animation -->
+    <div id="welcomeScreen" class="welcome-screen">
+        <div class="flex items-center space-x-3 mb-2 animate-pulse">
+            <i class="fas fa-bolt text-gold text-5xl md:text-6xl flix-icon-glow"></i>
+            <span class="text-5xl md:text-6xl flix-logo-text block leading-none">FLIX</span>
+        </div>
+        <p class="text-gold tracking-[0.4em] text-[10px] md:text-xs font-semibold uppercase mt-2 opacity-80">Premium Digital</p>
+        <div class="loading-bar"></div>
+    </div>
+
+    <!-- Top Mini Notification Bar -->
+    <div class="bg-gradient-to-r from-darkbg-900 via-darkbg-800 to-darkbg-900 border-b border-slate-800 text-xs py-1.5 px-4 text-slate-400">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <span class="flex items-center text-gold"><i class="fas fa-crown mr-1"></i> Flix Digital Store Official</span>
+                <span class="hidden md:inline">|</span>
+                <span class="hidden md:inline text-emerald-400 font-medium"><i class="fas fa-shield-alt mr-1"></i> 100% Aman & Garansi Penuh</span>
+                <span class="hidden lg:inline">|</span>
+                <span class="hidden lg:inline text-amber-300 font-semibold cursor-pointer" onclick="copyVoucher('FLIXHEMAT')">
+                    <i class="fas fa-ticket-alt mr-1"></i> Voucher: <strong class="underline bg-gold/20 px-1.5 py-0.5 rounded text-gold">FLIXHEMAT</strong> (Klik Salin)
+                </span>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="https://instagram.com/flixx_.id" target="_blank" class="hover:text-gold transition text-pink-400 flex items-center">
+                    <i class="fab fa-instagram mr-1"></i> IG: @flixx_.id
+                </a>
+                <span>|</span>
+                <a href="https://wa.me/6287894322674" target="_blank" class="text-green-400 hover:underline flex items-center">
+                    <i class="fab fa-whatsapp mr-1"></i> WA: 087894322674
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Header (Shopee Style) -->
+    <header class="sticky top-0 z-40 bg-darkbg-900/95 backdrop-blur-md border-b border-slate-800 shadow-2xl">
+        <div class="max-w-7xl mx-auto px-4 py-3">
+            <div class="flex items-center justify-between gap-4">
+                
+                <!-- Logo -->
+                <a href="#" class="flex items-center space-x-2 shrink-0">
+                    <div class="flex items-center justify-center">
+                        <i class="fas fa-bolt text-gold text-2xl flix-icon-glow mr-1"></i>
+                    </div>
+                    <div>
+                        <span class="text-3xl flix-logo-text block leading-none">FLIX</span>
+                        <span class="text-[9px] tracking-widest text-slate-400 uppercase font-medium">Digital Premium</span>
+                    </div>
+                </a>
+
+                <!-- Search Bar -->
+                <div class="flex-1 max-w-2xl mx-2">
+                    <div class="relative flex items-center">
+                        <input type="text" id="searchInput" onkeyup="filterProducts()" placeholder="Cari Netflix, Disney+, Canva, CapCut, Suntik Sosmed..." 
+                            class="w-full bg-darkbg-800 text-slate-200 placeholder-slate-500 text-sm rounded-lg pl-4 pr-12 py-2.5 border border-slate-700 focus:outline-none focus:border-gold transition">
+                        <button onclick="filterProducts()" class="absolute right-1 top-1 bottom-1 px-4 bg-gradient-to-r from-shopee-orange to-red-600 text-white rounded-md hover:opacity-90 transition">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right Action Icons -->
+                <div class="flex items-center space-x-5 shrink-0">
+                    <button class="relative text-slate-300 hover:text-gold transition text-xl hidden sm:block">
+                        <i class="far fa-bell"></i>
+                        <span class="absolute -top-1 -right-2 bg-shopee-orange text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">3</span>
+                    </button>
+
+                    <!-- Cart Icon -->
+                    <button onclick="toggleCartModal()" class="relative text-slate-300 hover:text-gold transition text-xl flex items-center">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span id="cartBadge" class="absolute -top-2 -right-2 bg-gold text-black font-bold text-xs w-5 h-5 rounded-full flex items-center justify-center shadow-md">0</span>
+                    </button>
+
+                    <div class="flex items-center space-x-2 pl-2 border-l border-slate-700">
+                        <div class="w-8 h-8 rounded-full bg-slate-800 border border-gold/50 flex items-center justify-center text-gold text-xs">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <span class="text-xs font-medium text-slate-300 hidden lg:inline">VIP Member</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Menu Multi-Category -->
+        <nav class="bg-darkbg-800/80 border-t border-slate-800">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="flex items-center space-x-1 overflow-x-auto py-2 scrollbar-none text-xs md:text-sm font-medium text-slate-300">
+                    <button onclick="filterCategory('all')" class="cat-btn active-cat px-4 py-1.5 rounded-full whitespace-nowrap transition hover:bg-gold/20 hover:text-gold bg-gold text-black font-semibold" data-cat="all">
+                        <i class="fas fa-th-large mr-1.5"></i> Semua Produk
+                    </button>
+                    <button onclick="filterCategory('sosmed')" class="cat-btn px-4 py-1.5 rounded-full whitespace-nowrap transition hover:bg-gold/20 hover:text-gold text-shopee-orange font-bold flex items-center" data-cat="sosmed">
+                        <i class="fas fa-heart mr-1.5"></i> Suntik Sosmed
+                    </button>
+                    <button onclick="filterCategory('streaming')" class="cat-btn px-4 py-1.5 rounded-full whitespace-nowrap transition hover:bg-gold/20 hover:text-gold" data-cat="streaming">
+                        <i class="fas fa-film mr-1.5 text-amber-500"></i> Streaming App
+                    </button>
+                    <button onclick="filterCategory('editing')" class="cat-btn px-4 py-1.5 rounded-full whitespace-nowrap transition hover:bg-gold/20 hover:text-gold" data-cat="editing">
+                        <i class="fas fa-pen-nib mr-1.5"></i> App Editing & Music
+                    </button>
+                    <a href="https://instagram.com/flixx_.id" target="_blank" class="px-4 py-1.5 rounded-full whitespace-nowrap transition hover:bg-pink-600/20 text-pink-400">
+                        <i class="fab fa-instagram mr-1.5"></i> @flixx_.id
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-7xl mx-auto px-4 py-6 space-y-8">
+
+        <!-- Hero Slider / Promo Carousel -->
+        <section class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            <div class="lg:col-span-2 relative rounded-2xl overflow-hidden border border-slate-800 bg-gradient-to-r from-slate-900 via-darkbg-800 to-black p-6 md:p-10 flex flex-col justify-between shadow-2xl min-h-[260px] md:min-h-[320px]">
+                <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-gold/10 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="absolute right-4 top-1/2 -translate-y-1/2 opacity-20 lg:opacity-30 pointer-events-none">
+                    <i class="fas fa-bolt text-[160px] text-gold"></i>
+                </div>
+
+                <div class="relative z-10 max-w-md">
+                    <span class="inline-block px-3 py-1 bg-gold/20 text-gold border border-gold/40 text-xs font-semibold rounded-full mb-3 uppercase tracking-wider">
+                        <i class="fas fa-star mr-1"></i> Layanan Premium Lengkap & Legal
+                    </span>
+                    <h1 class="text-2xl md:text-4xl font-serif font-bold text-white leading-tight mb-2">
+                        Pusat Akun & <span class="gold-gradient-text">Digital Terpercaya</span>
+                    </h1>
+                    <p class="text-slate-300 text-xs md:text-sm mb-4 leading-relaxed">
+                        🔥 <strong class="text-gold">Hemat Hingga 80%!</strong> Dapatkan aplikasi streaming premium, tools editor pro, dan booster sosmed tercepat di Indonesia. Bergaransi Full & Legal 100%!
+                    </p>
+                    
+                    <!-- TRUST BADGES MINI -->
+                    <div class="flex flex-wrap gap-2 text-[11px] font-semibold text-slate-300 mb-5">
+                        <span class="bg-darkbg-900/80 border border-slate-700 px-2.5 py-1 rounded-full flex items-center"><i class="fas fa-bolt text-gold mr-1.5"></i> Proses 1-5 Menit</span>
+                        <span class="bg-darkbg-900/80 border border-slate-700 px-2.5 py-1 rounded-full flex items-center"><i class="fas fa-shield-alt text-emerald-400 mr-1.5"></i> Garansi Ganti Baru</span>
+                        <span class="bg-darkbg-900/80 border border-slate-700 px-2.5 py-1 rounded-full flex items-center"><i class="fas fa-star text-amber-400 mr-1.5"></i> 15.000+ Pelanggan Puas</span>
+                    </div>
+
+                    <div class="flex items-center space-x-3">
+                        <a href="#produk-section" class="gold-button text-black font-bold px-6 py-2.5 rounded-xl text-sm inline-flex items-center shadow-lg">
+                            Lihat Katalog <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                        </a>
+                        <button onclick="copyVoucher('FLIXHEMAT')" class="bg-darkbg-700 hover:bg-slate-700 border border-gold/40 text-gold text-xs font-bold px-4 py-2.5 rounded-xl transition flex items-center">
+                            <i class="fas fa-gift mr-1.5"></i> Kode: FLIXHEMAT
+                        </button>
+                    </div>
+                </div>
+
+                <div class="relative z-10 mt-6 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+                    <div class="flex items-center space-x-2 text-xs">
+                        <span class="text-shopee-orange font-bold uppercase tracking-wider flex items-center">
+                            <i class="fas fa-bolt mr-1 animate-bounce"></i> Flash Sale Hari Ini:
+                        </span>
+                        <div class="flex space-x-1 font-mono font-bold text-white">
+                            <span class="bg-slate-800 px-2 py-0.5 rounded border border-slate-700" id="hours">08</span>:
+                            <span class="bg-slate-800 px-2 py-0.5 rounded border border-slate-700" id="minutes">42</span>:
+                            <span class="bg-slate-800 px-2 py-0.5 rounded border border-slate-700" id="seconds">15</span>
+                        </div>
+                    </div>
+                    <span class="text-[11px] text-emerald-400 font-semibold hidden sm:inline"><i class="fas fa-check-circle mr-1"></i> Garansi 100% Replace</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4">
+                <div class="rounded-2xl border border-slate-800 bg-gradient-to-br from-darkbg-800 to-slate-900 p-4 flex items-center space-x-4 shadow-lg hover:border-gold/40 transition">
+                    <div class="w-16 h-16 rounded-xl bg-slate-800 flex items-center justify-center text-3xl text-gold shrink-0 border border-slate-700">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs text-shopee-orange font-bold uppercase">Proses Instan</span>
+                        <h3 class="text-sm font-semibold text-white">Hitungan Menit</h3>
+                        <p class="text-[11px] text-slate-400">Aktivasi cepat kilat via WhatsApp Admin</p>
+                    </div>
+                </div>
+
+                <div class="rounded-2xl border border-slate-800 bg-gradient-to-br from-darkbg-800 to-slate-900 p-4 flex items-center space-x-4 shadow-lg hover:border-gold/40 transition">
+                    <div class="w-16 h-16 rounded-xl bg-slate-800 flex items-center justify-center text-3xl text-pink-400 shrink-0 border border-slate-700">
+                        <i class="fab fa-instagram"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs text-pink-400 font-bold uppercase">Official Instagram</span>
+                        <h3 class="text-sm font-semibold text-white">@flixx_.id</h3>
+                        <p class="text-[11px] text-slate-400">Cek Ratusan Testimoni Real Pembeli</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SPECIAL INCENTIVE / BONUS PROMO BANNER -->
+        <section class="bg-gradient-to-r from-amber-500/10 via-gold/20 to-amber-500/10 border border-gold/40 rounded-xl p-3.5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs shadow-lg">
+            <div class="flex items-center space-x-3 text-gold">
+                <i class="fas fa-gift text-2xl animate-bounce shrink-0"></i>
+                <div>
+                    <span class="font-bold text-white text-sm block sm:inline">🎁 SPECIAL PROMO HARI INI:</span>
+                    <span class="text-slate-300">Beli Minimal 2 Produk Digital Apapun, Gratis Ekstra Garansi + Diskon Khusus via WhatsApp!</span>
+                </div>
+            </div>
+            <button onclick="checkoutCartWA()" class="gold-button text-black font-bold px-4 py-2 rounded-lg whitespace-nowrap text-xs shadow-md shrink-0">
+                Klaim Promo Sekarang <i class="fas fa-chevron-right ml-1"></i>
+            </button>
+        </section>
+
+        <!-- Guarantee Features Bar -->
+        <section class="grid grid-cols-2 md:grid-cols-4 gap-3 bg-darkbg-800/60 p-4 rounded-xl border border-slate-800 text-center text-xs text-slate-300">
+            <div class="flex items-center justify-center space-x-2">
+                <i class="fas fa-check-circle text-gold text-base"></i>
+                <span>Proses Cepat & 100% Legal</span>
+            </div>
+            <div class="flex items-center justify-center space-x-2">
+                <i class="fas fa-shield-alt text-gold text-base"></i>
+                <span>Garansi Full Masa Aktif</span>
+            </div>
+            <div class="flex items-center justify-center space-x-2">
+                <i class="fas fa-lock text-gold text-base"></i>
+                <span>Privasi Data Terjamin</span>
+            </div>
+            <div class="flex items-center justify-center space-x-2">
+                <i class="fas fa-headset text-gold text-base"></i>
+                <span>Support Admin Super Ramah 24/7</span>
+            </div>
+        </section>
+
+        <!-- Section Header -->
+        <div id="produk-section" class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-800 pb-4 gap-2">
+            <div>
+                <h2 class="text-xl md:text-2xl font-bold text-white flex items-center">
+                    <span class="w-2 h-6 bg-gold rounded-full mr-2.5 inline-block"></span>
+                    Semua Produk & Layanan Flix
+                </h2>
+                <p class="text-xs text-slate-400">Pilih layanan digital favorit Anda di bawah ini dan dapatkan promo terbatas.</p>
+            </div>
+            
+            <div class="flex items-center space-x-2 self-end sm:self-auto">
+                <span class="text-xs text-slate-400">Urutkan:</span>
+                <select id="sortSelect" onchange="sortProducts()" class="bg-darkbg-800 border border-slate-700 text-xs text-slate-300 rounded-lg px-3 py-1.5 focus:outline-none focus:border-gold">
+                    <option value="default">Paling Sesuai</option>
+                    <option value="price-low">Harga: Rendah ke Tinggi</option>
+                    <option value="price-high">Harga: Tinggi ke Rendah</option>
+                    <option value="rating">Rating Tertinggi</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- PRODUCT GRID -->
+        <div id="productGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
+            <!-- Populated via JS -->
+        </div>
+
+        <!-- Empty State -->
+        <div id="emptyState" class="hidden text-center py-16">
+            <i class="fas fa-search-minus text-5xl text-slate-600 mb-3"></i>
+            <h3 class="text-lg font-bold text-slate-300">Produk Tidak Ditemukan</h3>
+            <p class="text-xs text-slate-500">Coba kata kunci pencarian lainnya.</p>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer id="footer" class="bg-darkbg-800 border-t border-slate-800 mt-16 text-slate-400 text-xs">
+        <div class="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div class="space-y-3">
+                <div class="flex items-center space-x-2">
+                    <div class="flex items-center justify-center text-gold">
+                        <i class="fas fa-bolt text-2xl flix-icon-glow"></i>
+                    </div>
+                    <span class="text-2xl flix-logo-text leading-none">FLIX</span>
+                </div>
+                <p class="text-slate-400 leading-relaxed">
+                    Pusat penyedia aplikasi premium dan layanan booster sosial media terpercaya, aman, legal, dan bergaransi resmi.
+                </p>
+                <div class="flex space-x-3 text-base text-slate-300">
+                    <a href="https://instagram.com/flixx_.id" target="_blank" class="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center hover:bg-gold hover:text-black transition"><i class="fab fa-instagram"></i></a>
+                    <a href="https://wa.me/6287894322674" target="_blank" class="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center hover:bg-gold hover:text-black transition"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="text-slate-200 font-bold uppercase tracking-wider mb-4 border-l-2 border-gold pl-2">Kategori Populer</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" onclick="filterCategory('sosmed')" class="hover:text-gold transition">Suntik Sosmed (IG, TT, WA, dll)</a></li>
+                    <li><a href="#" onclick="filterCategory('streaming')" class="hover:text-gold transition">Streaming & Bioskop (Netflix, Disney+, dll)</a></li>
+                    <li><a href="#" onclick="filterCategory('editing')" class="hover:text-gold transition">Aplikasi Editing & Music</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-slate-200 font-bold uppercase tracking-wider mb-4 border-l-2 border-gold pl-2">Ikuti Kami</h4>
+                <ul class="space-y-2">
+                    <li><a href="https://instagram.com/flixx_.id" target="_blank" class="hover:text-gold transition text-pink-400 flex items-center"><i class="fab fa-instagram mr-1.5"></i> Instagram: @flixx_.id</a></li>
+                    <li><a href="https://wa.me/6287894322674?text=Halo%20Flix,%20saya%20butuh%20bantuan" target="_blank" class="hover:text-gold transition text-green-400 flex items-center"><i class="fab fa-whatsapp mr-1.5"></i> WhatsApp Admin</a></li>
+                </ul>
+            </div>
+
+            <div class="bg-darkbg-900 p-4 rounded-xl border border-slate-700/60 space-y-3">
+                <h4 class="text-white font-bold flex items-center text-sm">
+                    <i class="fab fa-whatsapp text-green-400 text-lg mr-2"></i> Pemesanan Langsung
+                </h4>
+                <p class="text-slate-400">Hubungi langsung admin resmi kami:</p>
+                <div class="font-mono text-base font-bold text-gold">087894322674</div>
+                <a href="https://wa.me/6287894322674?text=Halo%20Flix,%20saya%20ingin%20tanya%20layanan%20digital" target="_blank" class="block w-full text-center wa-button text-white font-bold py-2 rounded-lg text-xs shadow-md">
+                    Chat WhatsApp Sekarang
+                </a>
+            </div>
+        </div>
+
+        <div class="border-t border-slate-800 text-center py-4 text-slate-500">
+            <p>&copy; 2026 FLIX Store (@flixx_.id). All Rights Reserved. CS Official: 087894322674.</p>
+        </div>
+
+        <!-- PERMINTAAN 1: TULISAN BERJALAN DIBAWAH SEKALI -->
+        <div class="bg-black border-t border-gold/30 py-2.5 overflow-hidden whitespace-nowrap">
+            <marquee behavior="scroll" direction="left" class="text-gold font-bold text-xs tracking-wider uppercase">
+                🔥 MASIH BANYAK LAGI APK PREMIUM LAINNYA HUBUNGI OWNER SECEPATNYA 🚀 | WA: 087894322674 | IG: @flixx_.id ⚡ KODE VOUCHER DISKON: FLIXHEMAT ⚡
+            </marquee>
+        </div>
+    </footer>
+
+    <!-- PRODUCT DETAIL MODAL -->
+    <div id="productModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-darkbg-800 border border-slate-700 rounded-2xl max-w-3xl w-full overflow-hidden shadow-2xl relative my-8">
+            <button onclick="closeProductModal()" class="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-slate-900/80 text-slate-400 hover:text-white flex items-center justify-center border border-slate-700 transition">
+                <i class="fas fa-times text-lg"></i>
+            </button>
+
+            <div class="grid grid-cols-1 md:grid-cols-2">
+                <div class="bg-darkbg-900 p-6 flex items-center justify-center relative min-h-[250px]">
+                    <img id="modalImg" src="" alt="Product Image" class="max-h-72 object-contain rounded-lg">
+                    <span id="modalBadge" class="absolute top-4 left-4 shopee-badge text-white font-bold text-[10px] px-2.5 py-1 rounded-full uppercase">
+                        Terlaris
+                    </span>
+                </div>
+
+                <div class="p-6 flex flex-col justify-between space-y-4">
+                    <div>
+                        <div class="flex items-center space-x-2 text-xs text-slate-400 mb-1">
+                            <span id="modalCategory" class="text-gold font-semibold uppercase">Kategori</span>
+                            <span>•</span>
+                            <div class="flex items-center text-amber-400">
+                                <i class="fas fa-star mr-1"></i>
+                                <span id="modalRating" class="font-bold">4.9</span>
+                            </div>
+                        </div>
+
+                        <h2 id="modalTitle" class="text-xl font-bold text-white mb-2 leading-tight">Nama Produk</h2>
+
+                        <div class="flex items-baseline space-x-3 mb-3 bg-darkbg-900/60 p-3 rounded-lg border border-slate-700/50">
+                            <span id="modalPrice" class="text-2xl font-bold text-shopee-orange">Rp 0</span>
+                            <span id="modalOldPrice" class="text-xs text-slate-500 line-through">Rp 0</span>
+                            <span id="modalDiscount" class="text-[10px] bg-red-900/50 text-red-300 border border-red-700 px-1.5 py-0.5 rounded font-bold">0% OFF</span>
+                        </div>
+
+                        <!-- MODAL TRUST BADGES -->
+                        <div class="grid grid-cols-2 gap-1.5 mb-3 text-[11px] text-slate-300">
+                            <div class="flex items-center text-emerald-400 font-medium"><i class="fas fa-check-circle mr-1"></i> 100% Legal & Bergaransi</div>
+                            <div class="flex items-center text-gold font-medium"><i class="fas fa-bolt mr-1"></i> Proses 1-5 Menit</div>
+                            <div class="flex items-center text-sky-400 font-medium"><i class="fas fa-mobile-alt mr-1"></i> All Device Compatible</div>
+                            <div class="flex items-center text-amber-400 font-medium"><i class="fas fa-fire mr-1"></i> Stok Terbatas Siap Kirim</div>
+                        </div>
+
+                        <div class="mb-4">
+                            <h4 class="text-xs font-bold text-slate-300 uppercase mb-1">Deskripsi Produk:</h4>
+                            <p id="modalDesc" class="text-xs text-slate-400 leading-relaxed max-h-32 overflow-y-auto pr-1">
+                                Deskripsi detail produk akan muncul di sini.
+                            </p>
+                        </div>
+
+                        <div class="flex items-center space-x-3 mb-4">
+                            <span class="text-xs font-bold text-slate-300 uppercase">Jumlah:</span>
+                            <div class="flex items-center border border-slate-700 rounded-lg bg-darkbg-900">
+                                <button onclick="updateModalQty(-1)" class="px-3 py-1 text-slate-300 hover:text-gold font-bold">-</button>
+                                <span id="modalQty" class="px-3 py-1 text-sm font-bold text-white">1</span>
+                                <button onclick="updateModalQty(1)" class="px-3 py-1 text-slate-300 hover:text-gold font-bold">+</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3 pt-2">
+                        <button onclick="addCurrentModalToCart()" class="bg-darkbg-700 hover:bg-slate-700 border border-slate-600 text-slate-200 font-bold py-2.5 rounded-xl text-xs flex items-center justify-center transition">
+                            <i class="fas fa-cart-plus mr-2 text-gold"></i> + Keranjang
+                        </button>
+                        <button onclick="buyModalDirectWA()" class="wa-button text-white font-bold py-2.5 rounded-xl text-xs flex items-center justify-center shadow-lg transition">
+                            <i class="fab fa-whatsapp mr-2 text-base"></i> Beli Sekarang
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CART SIDEBAR MODAL -->
+    <div id="cartModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex justify-end">
+        <div class="bg-darkbg-800 border-l border-slate-700 w-full max-w-md h-full flex flex-col justify-between p-6 shadow-2xl relative">
+            <div>
+                <div class="flex items-center justify-between border-b border-slate-700 pb-4 mb-4">
+                    <h3 class="text-lg font-bold text-white flex items-center">
+                        <i class="fas fa-shopping-bag text-gold mr-2"></i> Keranjang Belanja Anda
+                    </h3>
+                    <button onclick="toggleCartModal()" class="text-slate-400 hover:text-white text-lg">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+
+                <div id="cartItemsContainer" class="space-y-4 max-h-[60vh] overflow-y-auto pr-1"></div>
+
+                <div id="cartEmptyState" class="text-center py-12 text-slate-500">
+                    <i class="fas fa-shopping-basket text-4xl mb-2"></i>
+                    <p class="text-sm">Keranjang belanja Anda masih kosong.</p>
+                </div>
+            </div>
+
+            <div class="border-t border-slate-700 pt-4 space-y-3">
+                <div class="flex justify-between text-sm text-slate-400">
+                    <span>Total Item:</span>
+                    <span id="cartTotalItems" class="font-bold text-slate-200">0</span>
+                </div>
+                <div class="flex justify-between text-base font-bold text-white">
+                    <span>Total Pembayaran:</span>
+                    <span id="cartTotalPrice" class="text-shopee-orange">Rp 0</span>
+                </div>
+                <p class="text-[11px] text-slate-400 text-center">
+                    <i class="fas fa-info-circle mr-1"></i> Transaksi diteruskan ke WA official: <strong class="text-gold">087894322674</strong>
+                </p>
+                <button onclick="checkoutCartWA()" class="w-full wa-button text-white font-bold py-3 rounded-xl text-sm flex items-center justify-center space-x-2 shadow-xl">
+                    <i class="fab fa-whatsapp text-xl"></i>
+                    <span>Checkout Semua via WhatsApp</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="fixed bottom-5 right-5 z-50 hidden bg-slate-900 border border-gold text-slate-100 px-4 py-3 rounded-xl shadow-2xl flex items-center space-x-3">
+        <i class="fas fa-check-circle text-gold text-lg"></i>
+        <span id="toastMessage" class="text-xs font-semibold">Produk berhasil ditambahkan!</span>
+    </div>
+
+    <!-- REALTIME SOCIAL PROOF NOTIFICATION (PEMBELIAN TERBARU) -->
+    <div id="socialProofToast" class="fixed bottom-5 left-5 z-50 hidden bg-darkbg-800/95 border border-gold/50 text-slate-200 p-3 rounded-xl shadow-2xl flex items-center space-x-3 backdrop-blur-md max-w-xs transition-all duration-500">
+        <div class="w-9 h-9 rounded-full bg-gold/20 border border-gold flex items-center justify-center text-gold shrink-0">
+            <i class="fas fa-shopping-bag text-sm"></i>
+        </div>
+        <div class="text-xs">
+            <p class="font-bold text-white"><span id="spName">Budi</span> (<span id="spCity">Jakarta</span>) <span class="text-gold font-normal">baru saja order:</span></p>
+            <p id="spProduct" class="text-shopee-orange font-semibold line-clamp-1">Netflix Premium UHD 4K</p>
+            <p id="spTime" class="text-[10px] text-slate-400">Beberapa detik lalu • Order Terverifikasi</p>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        const WA_PHONE_NUMBER = "6287894322674";
+
+        const products = [
+            {
+                id: 1,
+                name: "Suntik Sosmed (IG, TT, WA Channel, Tele, FB)",
+                category: "sosmed",
+                price: 15000,
+                oldPrice: 30000,
+                discount: "50%",
+                rating: 4.9,
+                sold: "5.2rb",
+                image: "https://i.ibb.co.com/RTjLPkJN/Social-Media-Handle-Cara-Jitu-Meningkatkan-Jualan-Digital.jpg",
+                description: "Menambah followers, like, komen, views, dll untuk kebutuhan sosial media Anda (IG, TikTok, WA Channel, Telegram, FB). Proses cepat, aman, dan berkualitas.",
+                badge: "BEST SELLER"
+            },
+            {
+                id: 2,
+                name: "Netflix Premium UHD 4K",
+                category: "streaming",
+                price: 25000,
+                oldPrice: 55000,
+                discount: "54%",
+                rating: 4.9,
+                sold: "6.4rb",
+                image: "https://i.ibb.co.com/s9fb4Q9r/IMG-055965f3-a6a2-4f60-b4ee-3b3edd8e55c2.jpg",
+                description: "Netflix akun premium resolusi tertinggi UHD 4K. Bisa digunakan di TV, laptop, tablet, dan smartphone dengan garansi penuh.",
+                badge: "HOT"
+            },
+            {
+                id: 3,
+                name: "Disney+ Premium (6U 1B)",
+                category: "streaming",
+                price: 37000,
+                oldPrice: 60000,
+                discount: "38%",
+                rating: 4.8,
+                sold: "2.5rb",
+                image: "https://i.ibb.co.com/1fPyhtZf/IMG-c4181f45-090c-43c9-b5ca-f74fd01f0e88.jpg", 
+                description: "Akses ribuan film Marvel, Pixar, Star Wars, dan series eksklusif Disney+. Akun premium UHD aman & bergaransi.",
+                badge: "PREMIUM"
+            },
+            {
+                id: 4,
+                name: "Loklok (1B Basic Shared)",
+                category: "streaming",
+                price: 23000,
+                oldPrice: 40000,
+                discount: "42%",
+                rating: 4.7,
+                sold: "1.8rb",
+                image: "https://i.ibb.co.com/DH2H416j/IMG-d4de2722-ff77-4a63-94f5-dd5660df449d.jpg", 
+                description: "Nonton drakor, anime, dan film bioskop di Loklok tanpa iklan dengan fitur VIP lengkap Sub Indo.",
+                badge: "VIP"
+            },
+            {
+                id: 5,
+                name: "iQIYI Premium Shared (1B)",
+                category: "streaming",
+                price: 15000,
+                oldPrice: 30000,
+                discount: "50%",
+                rating: 4.8,
+                sold: "3.2rb",
+                image: "https://i.ibb.co.com/S4b1KdFv/IMG-f8a79c6d-ea3f-4f45-87da-792287b0b6d4.png", 
+                description: "Streaming drama China, Korea, dan Anime favorit di iQIYI status VIP Premium bebas iklan dan resolusi 1080p+.",
+                badge: "VIP"
+            },
+            {
+                id: 6,
+                name: "Youku VIP (1B: 14k | 1 Tahun: 30k)",
+                category: "streaming",
+                price: 14000,
+                oldPrice: 35000,
+                discount: "60%",
+                rating: 4.6,
+                sold: "950",
+                image: "https://i.ibb.co.com/0VBFBgyL/IMG-2cfdf488-a070-439b-9a21-a359b44d5042.png", 
+                description: "Akun VIP Youku. Tersedia 1 Bulan (14k) dan 1 Tahun (30k). Bebas iklan dan akses konten premium.",
+                badge: "VIP"
+            },
+            {
+                id: 7,
+                name: "YouTube Premium (No Ads)",
+                category: "streaming",
+                price: 15000,
+                oldPrice: 59000,
+                discount: "74%",
+                rating: 5.0,
+                sold: "12rb",
+                image: "https://i.ibb.co.com/mFvZpgQ9/IMG-6205fa53-d6c4-46cd-98c0-017286366ac1.jpg", 
+                description: "YouTube bebas iklan, bisa diputar di latar belakang, serta akses YouTube Music Premium. Legal & aman.",
+                badge: "BEST SELLER"
+            },
+            {
+                id: 8,
+                name: "WeTV VIP (1B)",
+                category: "streaming",
+                price: 15000,
+                oldPrice: 30000,
+                discount: "50%",
+                rating: 4.8,
+                sold: "4.1rb",
+                image: "https://i.ibb.co.com/xqGxB1FW/IMG-7289249e-7dc8-4141-9100-11496253072d.jpg", 
+                description: "Tonton drama WeTV Original duluan, bebas iklan, dan kualitas gambar Full HD.",
+                badge: "VIP"
+            },
+            {
+                id: 9,
+                name: "Amazon Prime Shared (1B)",
+                category: "streaming",
+                price: 15000,
+                oldPrice: 30000,
+                discount: "50%",
+                rating: 4.7,
+                sold: "1.3rb",
+                image: "https://i.ibb.co.com/LXggxP8M/IMG-b708d472-61fd-4422-92c9-0353a11f4606.png", 
+                description: "Akses ke seluruh film dan series Amazon Original kualitas 4K Ultra HD di berbagai perangkat.",
+                badge: "PRO"
+            },
+            {
+                id: 10,
+                name: "Movie Box Pro (1B)",
+                category: "streaming",
+                price: 13000,
+                oldPrice: 30000,
+                discount: "56%",
+                rating: 4.9,
+                sold: "2.1rb",
+                image: "https://i.ibb.co.com/8nfv4LZF/IMG-6673b523-25ec-4baf-95f0-456f9b487ce2.jpg", 
+                description: "Aplikasi film bioskop terbaru dengan server super cepat VIP (Stok Jarang/Terbatas).",
+                badge: "PRO"
+            },
+            {
+                id: 11,
+                name: "GagaOOLala VIP (1B)",
+                category: "streaming",
+                price: 13000,
+                oldPrice: 30000,
+                discount: "56%",
+                rating: 4.5,
+                sold: "750",
+                image: "https://i.ibb.co.com/jmrhs2Q/IMG-01db259e-512f-4402-8638-65a8f3876c84.jpg", 
+                description: "Akses premium untuk platform film independen se-Asia dengan kualitas tayangan HD.",
+                badge: "VIP"
+            },
+            {
+                id: 12,
+                name: "DramaBox VIP (1B)",
+                category: "streaming",
+                price: 20000,
+                oldPrice: 40000,
+                discount: "50%",
+                rating: 4.6,
+                sold: "1.1rb",
+                image: "https://i.ibb.co.com/TDNzz1YJ/IMG-a8c2bf10-d95a-400e-9bed-e6262cbcdfa0.jpg", 
+                description: "Topup koin & paket VIP DramaBox untuk nonton mini-series vertikal viral tanpa batasan.",
+                badge: "VIP"
+            },
+            {
+                id: 13,
+                name: "Canva Pro",
+                category: "editing",
+                price: 8000,
+                oldPrice: 25000,
+                discount: "68%",
+                rating: 5.0,
+                sold: "8.1rb",
+                image: "https://i.ibb.co.com/39tQpjqy/IMG-fa895e97-2094-4233-b51a-c02cc7654e52.jpg", 
+                description: "Tersedia pilihan paket Canva Pro: 1 Bulan (8k), 2 Bulan (10k), dan 1 Tahun (23k). Bebas akses template & elemen pro.",
+                badge: "PRO"
+            },
+            {
+                id: 14,
+                name: "CapCut Pro (7 Hari)",
+                category: "editing",
+                price: 10000,
+                oldPrice: 20000,
+                discount: "50%",
+                rating: 4.8,
+                sold: "3.5rb",
+                image: "https://i.ibb.co.com/DgLy89sG/Aplikasi-Capcut-Edit-Video-dengan-Mudah.jpg", 
+                description: "CapCut Pro durasi 7 hari. Tersedia variasi Android (10k) dan iOS (15k). Eksport video tanpa watermark.",
+                badge: "PRO"
+            },
+            {
+                id: 15,
+                name: "Alight Motion Pro",
+                category: "editing",
+                price: 15000,
+                oldPrice: 30000,
+                discount: "50%",
+                rating: 4.9,
+                sold: "2.8rb",
+                image: "https://i.ibb.co.com/N221bFNg/IMG-18d9bb0c-4233-423d-a809-07ed75970ffa.jpg", 
+                description: "Akun pribadi Alight Motion Pro. Buka semua efek premium, hapus watermark, dan bebas eksport XML.",
+                badge: "PRO"
+            },
+            {
+                id: 16,
+                name: "Spotify Premium",
+                category: "editing",
+                price: 18000,
+                oldPrice: 54000,
+                discount: "66%",
+                rating: 4.9,
+                sold: "8.3rb",
+                image: "https://i.ibb.co.com/tTFkjVdv/IMG-4b15ed2f-e3f6-4899-b836-095e0e0c0d55.jpg", 
+                description: "Spotify Premium anti iklan, skip lagu tanpa batas, unduh musik offline, dan kualitas audio maksimal.",
+                badge: "PREMIUM"
+            },
+            {
+                id: 17,
+                name: "Apple Music Lossless",
+                category: "editing",
+                price: 20000,
+                oldPrice: 45000,
+                discount: "55%",
+                rating: 4.7,
+                sold: "920",
+                image: "https://i.ibb.co.com/21QNPfqC/IMG-35de84a9-4f59-4aa7-ab31-bb0a94fe2710.jpg", 
+                description: "Apple Music 1 Bulan (20k). Nikmati 100 juta lagu kualitas audio lossless dan spatial audio bergaransi.",
+                badge: "PREMIUM"
+            },
+            {
+                id: 18,
+                name: "Vidio Premier Platinum TV",
+                category: "streaming",
+                price: 26000,
+                oldPrice: 50000,
+                discount: "48%",
+                rating: 4.8,
+                sold: "1.9rb",
+                image: "https://i.ibb.co.com/FkwpP48P/IMG-9619cb26-784c-4b33-acbb-147d2d14447e.jpg", 
+                description: "Vidio Premier Platinum TV durasi 1 Tahun (26k). Streaming Liga Olahraga, film, dan series tanpa iklan.",
+                badge: "BEST SELLER"
+            }
+        ];
+
+        let currentProducts = [...products];
+        let cart = [];
+        let currentModalProduct = null;
+        let modalQty = 1;
+
+        window.onload = function() {
+            renderProducts(currentProducts);
+            startCountdown();
+            startSocialProof();
+
+            setTimeout(() => {
+                const welcome = document.getElementById('welcomeScreen');
+                if(welcome) {
+                    welcome.classList.add('hide');
+                    setTimeout(() => welcome.remove(), 800);
+                }
+            }, 2000);
+        };
+
+        function renderProducts(items) {
+            const grid = document.getElementById('productGrid');
+            const emptyState = document.getElementById('emptyState');
+            
+            grid.innerHTML = '';
+
+            if (items.length === 0) {
+                emptyState.classList.remove('hidden');
+                return;
+            } else {
+                emptyState.classList.add('hidden');
+            }
+
+            items.forEach(product => {
+                const formattedPrice = formatRupiah(product.price);
+                const formattedOldPrice = formatRupiah(product.oldPrice);
+
+                const card = document.createElement('div');
+                card.className = "glass-card glow-hover rounded-xl overflow-hidden flex flex-col justify-between group cursor-pointer relative";
+                
+                card.innerHTML = `
+                    <div class="relative overflow-hidden bg-darkbg-900 pt-[100%]" onclick="openProductModal(${product.id})">
+                        <img src="${product.image}" alt="${product.name}" 
+                            class="absolute inset-0 w-full h-full object-cover group-hover:scale-108 transition duration-500 ease-out"
+                            onerror="this.src='https://placehold.co/400x400/121620/d4af37?text=Flix+Digital'">
+                        
+                        <div class="absolute top-2 left-2 flex flex-col gap-1 z-10">
+                            ${product.badge ? `<span class="bg-gradient-to-r from-gold to-yellow-600 text-black font-bold text-[9px] px-2 py-0.5 rounded shadow tracking-wide"><i class="fas fa-star mr-0.5 text-[8px]"></i> ${product.badge}</span>` : ''}
+                        </div>
+
+                        <div class="absolute top-0 right-0 bg-shopee-orange text-white font-bold text-[10px] px-2 py-1 rounded-bl-lg shadow">
+                            ${product.discount} OFF
+                        </div>
+                    </div>
+
+                    <div class="p-3 flex-1 flex flex-col justify-between space-y-2">
+                        <div>
+                            <h3 onclick="openProductModal(${product.id})" class="text-xs md:text-sm font-medium text-slate-200 line-clamp-2 hover:text-gold transition leading-snug cursor-pointer">
+                                ${product.name}
+                            </h3>
+                            <p class="text-[11px] text-slate-400 line-clamp-1 mt-1">${product.description}</p>
+                        </div>
+
+                        <div>
+                            <div class="flex items-center space-x-1 text-[10px] text-slate-400 my-1">
+                                <div class="flex items-center text-amber-400">
+                                    <i class="fas fa-star text-[9px]"></i>
+                                    <span class="ml-1 font-bold text-slate-300">${product.rating}</span>
+                                </div>
+                                <span>|</span>
+                                <span>Terjual ${product.sold}</span>
+                            </div>
+
+                            <div class="mt-1">
+                                <div class="text-xs text-slate-500 line-through">${formattedOldPrice}</div>
+                                <div class="text-sm md:text-base font-bold text-shopee-orange">${formattedPrice}</div>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-1.5 mt-3 pt-2 border-t border-slate-700/60">
+                                <button onclick="addToCart(${product.id}, event)" class="bg-darkbg-700 hover:bg-slate-700 text-gold border border-slate-600 rounded-lg py-1.5 text-xs font-semibold flex items-center justify-center transition">
+                                    <i class="fas fa-cart-plus mr-1 text-[11px]"></i> +Keranjang
+                                </button>
+                                <button onclick="buyDirectWA(${product.id}, event)" class="wa-button text-white rounded-lg py-1.5 text-xs font-bold flex items-center justify-center transition">
+                                    <i class="fab fa-whatsapp mr-1 text-sm"></i> Beli
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                grid.appendChild(card);
+            });
+        }
+
+        function formatRupiah(amount) {
+            return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(amount);
+        }
+
+        function filterCategory(cat) {
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                if (btn.getAttribute('data-cat') === cat) {
+                    btn.className = "cat-btn active-cat px-4 py-1.5 rounded-full whitespace-nowrap transition bg-gold text-black font-semibold";
+                } else {
+                    btn.className = "cat-btn px-4 py-1.5 rounded-full whitespace-nowrap transition hover:bg-gold/20 hover:text-gold text-slate-300";
+                }
+            });
+
+            if (cat === 'all') {
+                currentProducts = [...products];
+            } else {
+                currentProducts = products.filter(p => p.category === cat);
+            }
+
+            renderProducts(currentProducts);
+        }
+
+        function filterProducts() {
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            const filtered = products.filter(p => 
+                p.name.toLowerCase().includes(query) || 
+                p.description.toLowerCase().includes(query) ||
+                p.category.toLowerCase().includes(query)
+            );
+            renderProducts(filtered);
+        }
+
+        function sortProducts() {
+            const val = document.getElementById('sortSelect').value;
+            let sorted = [...currentProducts];
+
+            if (val === 'price-low') {
+                sorted.sort((a, b) => a.price - b.price);
+            } else if (val === 'price-high') {
+                sorted.sort((a, b) => b.price - a.price);
+            } else if (val === 'rating') {
+                sorted.sort((a, b) => b.rating - a.rating);
+            }
+
+            renderProducts(sorted);
+        }
+
+        function openProductModal(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            currentModalProduct = product;
+            modalQty = 1;
+
+            document.getElementById('modalImg').src = product.image;
+            document.getElementById('modalTitle').innerText = product.name;
+            document.getElementById('modalCategory').innerText = product.category;
+            document.getElementById('modalRating').innerText = product.rating;
+            document.getElementById('modalPrice').innerText = formatRupiah(product.price);
+            document.getElementById('modalOldPrice').innerText = formatRupiah(product.oldPrice);
+            document.getElementById('modalDiscount').innerText = product.discount + ' OFF';
+            document.getElementById('modalDesc').innerText = product.description;
+            document.getElementById('modalQty').innerText = modalQty;
+
+            document.getElementById('productModal').classList.remove('hidden');
+        }
+
+        function closeProductModal() {
+            document.getElementById('productModal').classList.add('hidden');
+        }
+
+        function updateModalQty(change) {
+            modalQty += change;
+            if (modalQty < 1) modalQty = 1;
+            document.getElementById('modalQty').innerText = modalQty;
+        }
+
+        function addToCart(productId, event) {
+            if (event) event.stopPropagation();
+
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            const existingIndex = cart.findIndex(item => item.id === productId);
+            if (existingIndex > -1) {
+                cart[existingIndex].qty += 1;
+            } else {
+                cart.push({ ...product, qty: 1 });
+            }
+
+            updateCartUI();
+            showToast(`"${product.name.substring(0, 20)}..." masuk keranjang!`);
+        }
+
+        function addCurrentModalToCart() {
+            if (!currentModalProduct) return;
+
+            const existingIndex = cart.findIndex(item => item.id === currentModalProduct.id);
+            if (existingIndex > -1) {
+                cart[existingIndex].qty += modalQty;
+            } else {
+                cart.push({ ...currentModalProduct, qty: modalQty });
+            }
+
+            updateCartUI();
+            closeProductModal();
+            showToast(`Berhasil menambahkan ${modalQty} item ke keranjang!`);
+        }
+
+        function updateCartUI() {
+            const badge = document.getElementById('cartBadge');
+            const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
+            badge.innerText = totalCount;
+
+            renderCartModalItems();
+        }
+
+        function toggleCartModal() {
+            const modal = document.getElementById('cartModal');
+            modal.classList.toggle('hidden');
+            renderCartModalItems();
+        }
+
+        function renderCartModalItems() {
+            const container = document.getElementById('cartItemsContainer');
+            const emptyState = document.getElementById('cartEmptyState');
+            const totalItemsEl = document.getElementById('cartTotalItems');
+            const totalPriceEl = document.getElementById('cartTotalPrice');
+
+            container.innerHTML = '';
+
+            if (cart.length === 0) {
+                emptyState.classList.remove('hidden');
+                totalItemsEl.innerText = 0;
+                totalPriceEl.innerText = formatRupiah(0);
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+            let grandTotal = 0;
+            let totalQty = 0;
+
+            cart.forEach((item, index) => {
+                const itemTotal = item.price * item.qty;
+                grandTotal += itemTotal;
+                totalQty += item.qty;
+
+                const itemRow = document.createElement('div');
+                itemRow.className = "flex items-center space-x-3 bg-darkbg-900 p-3 rounded-xl border border-slate-700/60";
+                itemRow.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}" class="w-14 h-14 object-cover rounded-lg bg-slate-800">
+                    <div class="flex-1">
+                        <h4 class="text-xs font-semibold text-white line-clamp-1">${item.name}</h4>
+                        <div class="text-xs font-bold text-shopee-orange mt-0.5">${formatRupiah(item.price)}</div>
+                        <div class="flex items-center space-x-2 mt-1">
+                            <button onclick="changeCartQty(${index}, -1)" class="w-5 h-5 rounded bg-slate-800 text-slate-300 flex items-center justify-center font-bold text-xs hover:bg-slate-700">-</button>
+                            <span class="text-xs font-bold text-slate-200">${item.qty}</span>
+                            <button onclick="changeCartQty(${index}, 1)" class="w-5 h-5 rounded bg-slate-800 text-slate-300 flex items-center justify-center font-bold text-xs hover:bg-slate-700">+</button>
+                        </div>
+                    </div>
+                    <button onclick="removeCartItem(${index})" class="text-slate-500 hover:text-red-400 p-1">
+                        <i class="fas fa-trash text-sm"></i>
+                    </button>
+                `;
+                container.appendChild(itemRow);
+            });
+
+            totalItemsEl.innerText = totalQty;
+            totalPriceEl.innerText = formatRupiah(grandTotal);
+        }
+
+        function changeCartQty(index, change) {
+            cart[index].qty += change;
+            if (cart[index].qty <= 0) {
+                cart.splice(index, 1);
+            }
+            updateCartUI();
+        }
+
+        function removeCartItem(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function buyDirectWA(productId, event) {
+            if (event) event.stopPropagation();
+
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            const message = `Halo Flix (@flixx_.id), saya ingin membeli ${product.name}
+------------------------------------------
+💰 *Harga:* ${formatRupiah(product.price)}
+📦 *Jumlah:* 1 Item
+🎟️ *Kode Voucher:* FLIXHEMAT
+------------------------------------------
+Mohon infokan cara pembayaran dan proses aktivasinya. Terima kasih!`;
+
+            window.open(`https://wa.me/${WA_PHONE_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
+        }
+
+        function buyModalDirectWA() {
+            if (!currentModalProduct) return;
+
+            const total = currentModalProduct.price * modalQty;
+            const message = `Halo Flix (@flixx_.id), saya ingin membeli ${currentModalProduct.name}
+------------------------------------------
+💰 *Harga Satuan:* ${formatRupiah(currentModalProduct.price)}
+📦 *Jumlah Pesanan:* ${modalQty} Item
+💳 *Total Pembayaran:* ${formatRupiah(total)}
+🎟️ *Kode Voucher:* FLIXHEMAT
+------------------------------------------
+Mohon diproses untuk aktivasi layanannya. Terima kasih!`;
+
+            window.open(`https://wa.me/${WA_PHONE_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
+        }
+
+        function checkoutCartWA() {
+            if (cart.length === 0) {
+                showToast("Keranjang Anda masih kosong!");
+                return;
+            }
+
+            let cartDetails = "";
+            let grandTotal = 0;
+
+            cart.forEach((item, index) => {
+                const subtotal = item.price * item.qty;
+                grandTotal += subtotal;
+                cartDetails += `${index + 1}. *${item.name}*\n   (${item.qty}x @ ${formatRupiah(item.price)}) = ${formatRupiah(subtotal)}\n`;
+            });
+
+            const message = `Halo Flix (@flixx_.id), saya ingin checkout *${cart.length} layanan digital* dari keranjang saya:
+
+------------------------------------------
+${cartDetails}------------------------------------------
+💳 *TOTAL PEMBAYARAN:* ${formatRupiah(grandTotal)}
+🎟️ *KODE VOUCHER:* FLIXHEMAT
+------------------------------------------
+Mohon diproses dan infokan metode pembayarannya. Terima kasih!`;
+
+            window.open(`https://wa.me/${WA_PHONE_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
+        }
+
+        function copyVoucher(code) {
+            navigator.clipboard.writeText(code);
+            showToast(`Kode voucher "${code}" disalin! Gunakan saat pesan di WA.`);
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toastMessage');
+            toastMsg.innerText = msg;
+
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 3000);
+        }
+
+        function startCountdown() {
+            let duration = 8 * 3600 + 42 * 60 + 15;
+            setInterval(() => {
+                duration--;
+                if (duration < 0) duration = 12 * 3600;
+
+                const hrs = Math.floor(duration / 3600);
+                const mins = Math.floor((duration % 3600) / 60);
+                const secs = duration % 60;
+
+                document.getElementById('hours').innerText = String(hrs).padStart(2, '0');
+                document.getElementById('minutes').innerText = String(mins).padStart(2, '0');
+                document.getElementById('seconds').innerText = String(secs).padStart(2, '0');
+            }, 1000);
+        }
+
+        // FITUR SOCIAL PROOF SIMULATED LIVE BUYER (PEMBELIAN TERBARU)
+        function startSocialProof() {
+            const buyerNames = ["Budi", "Siti", "Andi", "Rian", "Dewi", "Fajar", "Nadia", "Reza", "Putri", "Kevin"];
+            const buyerCities = ["Jakarta", "Surabaya", "Bandung", "Medan", "Semarang", "Makassar", "Palembang", "Yogyakarta", "Bali", "Malang"];
+
+            setInterval(() => {
+                if (Math.random() > 0.3) {
+                    const randomName = buyerNames[Math.floor(Math.random() * buyerNames.length)];
+                    const randomCity = buyerCities[Math.floor(Math.random() * buyerCities.length)];
+                    const randomProd = products[Math.floor(Math.random() * products.length)];
+                    const randomSec = Math.floor(Math.random() * 45) + 2;
+
+                    document.getElementById('spName').innerText = randomName;
+                    document.getElementById('spCity').innerText = randomCity;
+                    document.getElementById('spProduct').innerText = randomProd.name;
+                    document.getElementById('spTime').innerText = `${randomSec} detik lalu • Order Terverifikasi`;
+
+                    const toast = document.getElementById('socialProofToast');
+                    toast.classList.remove('hidden');
+
+                    setTimeout(() => {
+                        toast.classList.add('hidden');
+                    }, 4000);
+                }
+            }, 12000);
+        }
+    </script>
+</body>
+</html>
